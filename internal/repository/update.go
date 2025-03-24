@@ -4,9 +4,8 @@ import (
 	"github.com/huandu/go-sqlbuilder"
 )
 
-func (repository *CRUDRepository[Model]) DeleteReturnNull(where string) ([]Model, error) {
-	builder := sqlbuilder.DeleteFrom(repository.table)
-	builder.Where(where)
+func (repository *CRUDRepository[Model]) Update(model Model, where string) ([]Model, error) {
+	builder := sqlbuilder.Update(repository.table) //.Set(model)
 
 	query, args := builder.Build()
 
