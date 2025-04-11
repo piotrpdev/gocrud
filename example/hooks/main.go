@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 	"net/http"
@@ -31,7 +32,32 @@ func main() {
 		fmt.Println(err)
 	}
 
-	gocrud.Register(api, gocrud.NewSQLRepository[User](db), &gocrud.Config[User]{})
+	gocrud.Register(api, gocrud.NewSQLRepository[User](db), &gocrud.Config[User]{
+		BeforeGet: func(ctx context.Context, where *map[string]any, order *map[string]any, limit *int, skip *int) error {
+			return nil
+		},
+		BeforePut: func(ctx context.Context, models *[]User) error {
+			return nil
+		},
+		BeforePost: func(ctx context.Context, models *[]User) error {
+			return nil
+		},
+		BeforeDelete: func(ctx context.Context, where *map[string]any) error {
+			return nil
+		},
+		AfterGet: func(ctx context.Context, models *[]User) error {
+			return nil
+		},
+		AfterPut: func(ctx context.Context, models *[]User) error {
+			return nil
+		},
+		AfterPost: func(ctx context.Context, models *[]User) error {
+			return nil
+		},
+		AfterDelete: func(ctx context.Context, models *[]User) error {
+			return nil
+		},
+	})
 
 	fmt.Printf("Starting server on port 8888...\n")
 	http.ListenAndServe(":8888", mux)

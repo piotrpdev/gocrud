@@ -31,7 +31,12 @@ func main() {
 		fmt.Println(err)
 	}
 
-	gocrud.Register(api, gocrud.NewSQLRepository[User](db), &gocrud.Config[User]{})
+	gocrud.Register(api, gocrud.NewSQLRepository[User](db), &gocrud.Config[User]{
+		GetMode:    gocrud.BulkSingle,
+		PutMode:    gocrud.Single,
+		PostMode:   gocrud.None,
+		DeleteMode: gocrud.None,
+	})
 
 	fmt.Printf("Starting server on port 8888...\n")
 	http.ListenAndServe(":8888", mux)

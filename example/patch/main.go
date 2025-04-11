@@ -9,6 +9,7 @@ import (
 
 	"github.com/danielgtaylor/huma/v2"
 	"github.com/danielgtaylor/huma/v2/adapters/humago"
+	"github.com/danielgtaylor/huma/v2/autopatch"
 
 	_ "github.com/lib/pq"
 )
@@ -32,6 +33,7 @@ func main() {
 	}
 
 	gocrud.Register(api, gocrud.NewSQLRepository[User](db), &gocrud.Config[User]{})
+	autopatch.AutoPatch(api)
 
 	fmt.Printf("Starting server on port 8888...\n")
 	http.ListenAndServe(":8888", mux)
