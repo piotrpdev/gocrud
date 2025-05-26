@@ -1,4 +1,4 @@
-module github.com/ckoliber/gocrud
+module github.com/piotrpdev/gocrud
 
 go 1.24.1
 
